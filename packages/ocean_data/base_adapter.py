@@ -1,23 +1,25 @@
+"""Base data ingestion adapter interface."""
 from abc import ABC, abstractmethod
-from typing import List, Dict, Any
+from typing import Any, Dict, List
+from packages.schemas.observation import ObservationBase
+
 
 class BaseDataIngestionAdapter(ABC):
     """
-    Abstract base class for all ocean data ingestion adapters.
+    Abstract base interface for all external ocean data ingestion adapters.
     Provides standard contract for raw telemetry acquisition and standardized normalization.
     """
 
     @abstractmethod
     def fetch_raw_data(self, **kwargs) -> List[Dict[str, Any]]:
         """
-        Fetches or simulates raw payload records from external sources,
-        satellite data streams, or sensor telemetry APIs.
+        Fetch raw observational telemetry records from external APIs or local sources.
         """
         pass
 
     @abstractmethod
     def normalize_record(self, raw_record: Dict[str, Any]) -> Any:
         """
-        Normalizes a raw telemetry dictionary into a unified observation schema.
+        Normalize an external raw telemetry dictionary into the unified ObservationBase schema.
         """
         pass
